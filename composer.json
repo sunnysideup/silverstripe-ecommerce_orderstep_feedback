@@ -1,0 +1,20 @@
+{
+    "name": "sunnysideup/ecommerce_orderstep_feedback",
+    "type": "silverstripe-module",
+    "description": "allows you to sync just one folder in assets rather than all of assets.",
+
+    "license": "Sunny Side Up (BSD-3-Clause and CUSTOM)",
+    "authors": [
+        {
+            "name": "Nicolaas Francken",
+            "email": "modules@sunnysideup.co.nz",
+            "role": "lead developer"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": "~2.4"
+    },
+    "extra": {
+        "installer-name": "ecommerce_orderstep_feedback"
+    }
+}
