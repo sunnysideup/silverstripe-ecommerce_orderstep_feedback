@@ -11,8 +11,8 @@
         }
     ],
     "require": {
-        "silverstripe/framework": "~2.4",
-        "silverstripe/cms": "~2.4"
+        "silverstripe/framework": "^3.4",
+        "sunnysideup": "ecommerce"
     },
     "extra": {
         "installer-name": "ecommerce_orderstep_feedback"
