@@ -11,7 +11,7 @@
         <thead>
             <tr class="shopAddress">
                 <th>
-                    <% include Order_ShopInfo %>
+                    <% include Order_ShopInfo_PackingSlip %>
                 </th>
             </tr>
 
