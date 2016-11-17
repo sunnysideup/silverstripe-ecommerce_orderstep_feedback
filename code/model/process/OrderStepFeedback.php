@@ -58,9 +58,17 @@ class OrderStepFeedback extends OrderStep
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
-        $fields->addFieldToTab('Root.CustomerMessage', new CheckboxField('SendFeedbackEmail', 'Send feedback email to customer?'), "EmailSubject");
-        $fields->addFieldToTab('Root.CustomerMessage', new NumericField('MinDays', 'Send after a mininum of how many days since placing the order?'));
-        $fields->addFieldToTab('Root.CustomerMessage', new NumericField('MaxDays', 'Send before a maxinum of how many days since placing the order? If set to zero, this step will be ignored.'));
+        $fields->addFieldsToTab(
+            'Root.CustomerMessage',
+            array(
+                CheckboxField::create('SendFeedbackEmail', 'Send feedback email to customer?'),
+                $minDaysField = NumericField::create('MinDays', "<strong>Min Days</strong> before sending"),
+                $maxDaysField = NumericField::create('MaxDays', "<strong>Max Days</strong> before sending")
+            ),
+            "EmailSubject"
+        );
+        $minDaysField->setRightTitle('What is the <strong>mininum number of days to wait after completing an order</strong> before this email should be sent?');
+        $maxDaysField->setRightTitle('What is the <strong>maxinum number of days to wait after completing an order</strong> before this email should be sent?<br><strong>If set to zero, this step will be ignored.</strong>');
         return $fields;
     }
 
