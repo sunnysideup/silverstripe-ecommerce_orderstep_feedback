@@ -18,7 +18,6 @@
             <tr class="message">
                 <td class="left">
                     <h1 class="title">$Subject</h1>
-                    <% if Message %><div class="message">$Message</div><% end_if %>
                     <% if OrderStepMessage %><div class="orderStepMessage">$OrderStepMessage</div><% end_if %>
                 </td>
             </tr>
@@ -31,7 +30,6 @@
                         <% with Order %>
                             <div id="OrderInformation">
                                 <h2 class="orderHeading"><% if RetrieveLink %><a href="$RetrieveLink"><% end_if %>$Title<% if RetrieveLink %></a><% end_if %></h2>
-                                <% include Order_Addresses %>
                                 <% if Items %>
                                     <h2>Please place feedback for the following items:</h2>
                                     <ul>
@@ -48,6 +46,7 @@
                                     <% end_loop %>
                                     </ul>
                                 <% end_if %>
+                                <% include Order_Addresses %>
                             </div>
                         <% end_with %>
                     <% else %>
