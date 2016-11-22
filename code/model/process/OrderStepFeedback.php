@@ -68,14 +68,17 @@ class OrderStepFeedback extends OrderStep
             "EmailSubject"
         );
         $minDaysField->setRightTitle('What is the <strong>mininum number of days to wait after completing an order</strong> before this email should be sent?');
-        $maxDaysField->setRightTitle('What is the <strong>maxinum number of days to wait after completing an order</strong> before this email should be sent?<br><strong>If set to zero, this step will be ignored.</strong>');
+        $maxDaysField->setRightTitle('
+            What is the <strong>maxinum number of days to wait after completing an order</strong> before this email should be sent?<br>
+            <strong>If set to zero, this step will be ignored.</strong>'
+        );
         return $fields;
     }
 
     public function initStep(Order $order)
     {
         if ($this->SendFeedbackEmail) {
-            Config::inst()->update("Order_Email", "number_of_days_to_send_update_email", 360);
+            Config::inst()->update("OrderStep", "number_of_days_to_send_update_email", $this->MaxDays);
         }
         return true;
     }
@@ -104,7 +107,13 @@ class OrderStepFeedback extends OrderStep
                     if ($this->Config()->get("verbose")) {
                         DB::alteration_message(" - Sending it now!");
                     }
-                    return $order->sendEmail($subject, $message, $resend = false, $adminOnly = false, $this->getEmailClassName());
+                    return $order->sendEmail(
+                        $subject, 
+                        $message, 
+                        $resend = false, 
+                        $adminOnly = false, 
+                        $this->getEmailClassName()
+                    );
                 }
             }
             //wait until later....
@@ -207,10 +216,11 @@ class OrderStepFeedback extends OrderStep
                 return ($stopSendingTS < $nowTS) ? true : false;
             } else {
                 user_error("can not find order log for ".$order->ID);
+                return false;
             }
+        } else {
+            return true;
         }
-        //send forever
-        return false;
     }
 
     public function hasBeenSent(Order $order, $checkDateOfOrder = true)
