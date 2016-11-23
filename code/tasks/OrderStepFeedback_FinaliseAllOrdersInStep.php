@@ -31,7 +31,7 @@ class OrderStepFeedback_FinaliseAllOrdersInStep extends BuildTask
                 $count = Config::inst()->get('OrderStepFeedback_FinaliseAllOrdersInStep', 'number_of_orders_at_one_time');
             }
             if (PHP_SAPI === 'cli') {
-                $count = Config::inst()->get('OrderStepFeedback_FinaliseAllOrdersInStep', 'number_of_orders_at_one_time_cli'); 
+                $count = Config::inst()->get('OrderStepFeedback_FinaliseAllOrdersInStep', 'number_of_orders_at_one_time_cli');
             }
 
             //redo ones from the archived step...
