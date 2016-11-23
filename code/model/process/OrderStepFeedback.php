@@ -108,10 +108,10 @@ class OrderStepFeedback extends OrderStep
                         DB::alteration_message(" - Sending it now!");
                     }
                     return $order->sendEmail(
-                        $subject, 
-                        $message, 
-                        $resend = false, 
-                        $adminOnly = false, 
+                        $subject,
+                        $message,
+                        $resend = false,
+                        $adminOnly = false,
                         $this->getEmailClassName()
                     );
                 }
