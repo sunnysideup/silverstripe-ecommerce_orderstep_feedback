@@ -108,10 +108,10 @@ class OrderStepFeedback extends OrderStep
                         DB::alteration_message(" - Sending it now!");
                     }
                     return $order->sendEmail(
-                        $subject, 
-                        $message, 
-                        $resend = false, 
-                        $adminOnly = false, 
+                        $subject,
+                        $message,
+                        $resend = false,
+                        $adminOnly = false,
                         $this->getEmailClassName()
                     );
                 }
@@ -136,7 +136,7 @@ class OrderStepFeedback extends OrderStep
     public function nextStep(Order $order)
     {
         if (
-            ! $this->SendFeedbackEmail || //not sure if we need this
+            ! $this->SendFeedbackEmail || 
              $this->hasBeenSent($order, false) ||
              $this->isExpiredFeedbackStep($order)
         ) {
