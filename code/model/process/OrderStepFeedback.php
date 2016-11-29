@@ -136,7 +136,7 @@ class OrderStepFeedback extends OrderStep
     public function nextStep(Order $order)
     {
         if (
-            ! $this->SendFeedbackEmail || 
+            ! $this->SendFeedbackEmail ||
              $this->hasBeenSent($order, false) ||
              $this->isExpiredFeedbackStep($order)
         ) {
