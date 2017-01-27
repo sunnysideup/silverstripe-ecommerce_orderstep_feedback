@@ -38,7 +38,9 @@ class OrderStepFeedback extends OrderStep
     private static $db = array(
         'SendFeedbackEmail' => 'Boolean',
         'MinDays' => 'Int',
-        'MaxDays' => 'Int'
+        'MaxDays' => 'Int',
+        'MessageAfterProductsList' => 'HTMLText',
+        'LinkText' => 'Varchar'
     );
 
     private static $defaults = array(
@@ -71,6 +73,21 @@ class OrderStepFeedback extends OrderStep
         $maxDaysField->setRightTitle('
             What is the <strong>maxinum number of days to wait after completing an order</strong> before this email should be sent?<br>
             <strong>If set to zero, this step will be ignored.</strong>'
+        );
+        $fields->addFieldsToTab(
+            'Root.CustomerMessage',
+            array(
+                HTMLEditorField::create(
+                    'MessageAfterProductsList',
+                    _t('OrderStepFeedback.MESSAGEAFTERPRODUCTSLIST', 'Message After Products List')
+                )->setRightTitle(
+                    'Optional message displayed after the list of products'
+                )->setRows(3),
+                TextField::create(
+                    'LinkText',
+                    _t('OrderStepFeedback.BUTTONTEXT', 'Link Text')
+                )->setRightTitle('This is the text displayed on the "order again" link/button')
+            )
         );
         return $fields;
     }

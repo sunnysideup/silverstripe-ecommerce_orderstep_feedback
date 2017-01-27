@@ -57,6 +57,22 @@
         </tbody>
     </table>
 
+    <% if Order %>
+        <% with Order %>
+            <% if Status.MessageAfterProductsList %>
+                <div class="messageAfterProductsList">$Status.MessageAfterProductsList</div>
+            <% end_if %>
+            <% if CopyOrderLink %>
+                <a href="$CopyOrderLink" class="button reorder-button">
+                    <% if $Status.LinkText %>
+                        $Status.LinkText
+                    <% else %>
+                        Place this order again
+                    <% end_if %>
+                </a>
+            <% end_if %>
+        <% end_with %>
+    <% end_if %>
 </div>
 </body>
 </html>
