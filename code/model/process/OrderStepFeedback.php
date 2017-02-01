@@ -125,11 +125,11 @@ class OrderStepFeedback extends OrderStep
                         DB::alteration_message(" - Sending it now!");
                     }
                     return $order->sendEmail(
+                        $this->getEmailClassName()
                         $subject,
                         $message,
                         $resend = false,
-                        $adminOnly = false,
-                        $this->getEmailClassName()
+                        $adminOnlyOrToEmail = false,
                     );
                 }
             }
