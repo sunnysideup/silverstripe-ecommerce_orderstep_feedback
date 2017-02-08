@@ -47,7 +47,7 @@ class OrderStepFeedback extends OrderStep
         'CustomerCanEdit' => 0,
         'CustomerCanCancel' => 0,
         'CustomerCanPay' => 0,
-        'Name' => 'Get feedback',
+        'Name' => 'Get Feedback',
         'Code' => 'FEEDBACK',
         "ShowAsInProcessOrder" => true,
         "HideStepFromCustomer" => true,
