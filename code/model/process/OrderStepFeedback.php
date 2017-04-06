@@ -89,6 +89,12 @@ class OrderStepFeedback extends OrderStep
                 )->setRightTitle('This is the text displayed on the "order again" link/button')
             )
         );
+        if($this->MinDays) {
+            $fields->replaceField(
+                'DeferTimeInSeconds',
+                $fields->dataFieldByName('DeferTimeInSeconds')->performReadonlyTransformation()
+            );
+        }
         return $fields;
     }
 
@@ -250,4 +256,19 @@ class OrderStepFeedback extends OrderStep
             )
         )->count() ? true : false;
     }
+
+
+    /**
+     * Event handler called before writing to the database.
+     */
+    public function onBeforeWrite()
+    {
+        parent::onBeforeWrite();
+        $deferTime = $this->MinDays * 86400;
+        if($this->DeferTimeInSeconds < $deferTime) {
+            $this->DeferTimeInSeconds = $deferTime;
+        }
+
+    }
+
 }
