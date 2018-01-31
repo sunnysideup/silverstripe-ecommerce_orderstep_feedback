@@ -70,7 +70,8 @@ class OrderStepFeedback extends OrderStep
             "EmailSubject"
         );
         $minDaysField->setRightTitle('What is the <strong>mininum number of days to wait after completing an order</strong> before this email should be sent?');
-        $maxDaysField->setRightTitle('
+        $maxDaysField->setRightTitle(
+            '
             What is the <strong>maxinum number of days to wait after completing an order</strong> before this email should be sent?<br>
             <strong>If set to zero, this step will be ignored.</strong>'
         );
@@ -89,7 +90,7 @@ class OrderStepFeedback extends OrderStep
                 )->setRightTitle('This is the text displayed on the "order again" link/button')
             )
         );
-        if($this->MinDays) {
+        if ($this->MinDays) {
             $fields->replaceField(
                 'DeferTimeInSeconds',
                 $fields->dataFieldByName('DeferTimeInSeconds')->performReadonlyTransformation()
@@ -265,10 +266,8 @@ class OrderStepFeedback extends OrderStep
     {
         parent::onBeforeWrite();
         $deferTime = $this->MinDays * 86400;
-        if($this->DeferTimeInSeconds < $deferTime) {
+        if ($this->DeferTimeInSeconds < $deferTime) {
             $this->DeferTimeInSeconds = $deferTime;
         }
-
     }
-
 }
