@@ -78,7 +78,25 @@ class OrderStepFeedback extends OrderStep
             'Root.CustomerMessage',
             array(
                 CheckboxField::create('SendFeedbackEmail', 'Send feedback email to customer?'),
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: automated upgrade
+  * OLD: NumericField::create (case sensitive)
+  * NEW: NumericField::create (COMPLEX)
+  * EXP: check the number of decimals required and add as ->setScale(2)
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
                 $minDaysField = NumericField::create('MinDays', "<strong>Min Days</strong> before sending"),
+
+/**
+  * ### @@@@ START REPLACEMENT @@@@ ###
+  * WHY: automated upgrade
+  * OLD: NumericField::create (case sensitive)
+  * NEW: NumericField::create (COMPLEX)
+  * EXP: check the number of decimals required and add as ->setScale(2)
+  * ### @@@@ STOP REPLACEMENT @@@@ ###
+  */
                 $maxDaysField = NumericField::create('MaxDays', "<strong>Max Days</strong> before sending")
             ),
             "EmailSubject"
@@ -116,7 +134,7 @@ class OrderStepFeedback extends OrderStep
     public function initStep(Order $order)
     {
         if ($this->SendFeedbackEmail) {
-            Config::inst()->update("OrderStep", "number_of_days_to_send_update_email", $this->MaxDays);
+            Config::modify()->update("OrderStep", "number_of_days_to_send_update_email", $this->MaxDays);
         }
         return true;
     }
