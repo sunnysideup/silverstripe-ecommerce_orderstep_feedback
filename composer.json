@@ -1,6 +1,6 @@
 {
     "name": "sunnysideup/ecommerce_orderstep_feedback",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "description": "add a feedbck step to silverstripe e-commerce",
     "license": "BSD-3-Clause",
     "authors": [
