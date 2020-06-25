@@ -1,0 +1,3 @@
+mappings:
+  OrderStepFeedback_Email: Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedback_Email
+  OrderStepFeedback: Sunnysideup\EcommerceOrderstepFeedback\Model\Process\OrderStepFeedback

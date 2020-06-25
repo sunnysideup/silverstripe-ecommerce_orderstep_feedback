@@ -1,5 +1,18 @@
 <?php
 
+namespace Sunnysideup\EcommerceOrderstepFeedback\Model\Process;
+
+use OrderStep;
+use CheckboxField;
+use NumericField;
+use HTMLEditorField;
+use TextField;
+use Order;
+use Config;
+use DB;
+use OrderEmailRecord;
+
+
 /**
  *
  * 1 July bough
