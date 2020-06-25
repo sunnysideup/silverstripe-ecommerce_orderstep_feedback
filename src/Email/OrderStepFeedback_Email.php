@@ -2,11 +2,14 @@
 
 namespace Sunnysideup\EcommerceOrderstepFeedback\Email;
 
-use OrderEmail;
+
+use Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedback_Email;
+use Sunnysideup\Ecommerce\Email\OrderEmail;
+
 
 
 class OrderStepFeedback_Email extends OrderEmail
 {
-    protected $ss_template = 'OrderStepFeedback_Email';
+    protected $ss_template = OrderStepFeedback_Email::class;
 }
 

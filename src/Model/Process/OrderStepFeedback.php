@@ -2,15 +2,26 @@
 
 namespace Sunnysideup\EcommerceOrderstepFeedback\Model\Process;
 
-use OrderStep;
-use CheckboxField;
-use NumericField;
-use HTMLEditorField;
-use TextField;
-use Order;
-use Config;
-use DB;
-use OrderEmailRecord;
+
+
+
+
+
+
+
+
+
+use Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedback_Email;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\NumericField;
+use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use SilverStripe\Forms\TextField;
+use Sunnysideup\Ecommerce\Model\Order;
+use SilverStripe\Core\Config\Config;
+use Sunnysideup\Ecommerce\Model\Process\OrderStep;
+use SilverStripe\ORM\DB;
+use Sunnysideup\Ecommerce\Model\Process\OrderEmailRecord;
+
 
 
 /**
@@ -46,7 +57,7 @@ class OrderStepFeedback extends OrderStep
     /**
      * @var String
      */
-    protected $emailClassName = "OrderStepFeedback_Email";
+    protected $emailClassName = OrderStepFeedback_Email::class;
 
 
 /**
@@ -147,7 +158,7 @@ class OrderStepFeedback extends OrderStep
     public function initStep(Order $order)
     {
         if ($this->SendFeedbackEmail) {
-            Config::modify()->update("OrderStep", "number_of_days_to_send_update_email", $this->MaxDays);
+            Config::modify()->update(OrderStep::class, "number_of_days_to_send_update_email", $this->MaxDays);
         }
         return true;
     }
