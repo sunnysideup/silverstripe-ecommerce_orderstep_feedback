@@ -1,0 +1,13 @@
+2020-06-25 02:18
+
+# running php upgrade inspect see: https://github.com/silverstripe/silverstripe-upgrader
+cd /var/www/upgrades/ecommerce_orderstep_feedback
+php /var/www/ss3/upgrader/vendor/silverstripe/upgrader/bin/upgrade-code inspect /var/www/upgrades/ecommerce_orderstep_feedback/ecommerce_orderstep_feedback/src  --root-dir=/var/www/upgrades/ecommerce_orderstep_feedback --write -vvv
+Writing changes for 0 files
+Running post-upgrade on "/var/www/upgrades/ecommerce_orderstep_feedback/ecommerce_orderstep_feedback/src"
+[2020-06-25 14:18:49] Applying ApiChangeWarningsRule to OrderStepFeedback_Email.php...
+[2020-06-25 14:18:49] Applying UpdateVisibilityRule to OrderStepFeedback_Email.php...
+[2020-06-25 14:18:49] Applying ApiChangeWarningsRule to OrderStepFeedback.php...
+[2020-06-25 14:18:50] Applying UpdateVisibilityRule to OrderStepFeedback.php...
+Writing changes for 0 files
+✔✔✔
