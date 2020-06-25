@@ -11,7 +11,7 @@
         <thead>
             <tr class="shopAddress">
                 <th>
-                    <% include Order_ShopInfo_PackingSlip %>
+                    <% include Sunnysideup\EcommerceOrderstepFeedback\IncludesOrder_ShopInfo_PackingSlip %>
                 </th>
             </tr>
 
@@ -46,7 +46,7 @@
                                     <% end_loop %>
                                     </ul>
                                 <% end_if %>
-                                <% include Order_Addresses %>
+                                <% include Sunnysideup\EcommerceOrderstepFeedback\IncludesOrder_Addresses %>
                             </div>
                         <% end_with %>
                     <% else %>

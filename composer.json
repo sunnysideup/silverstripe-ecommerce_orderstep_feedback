@@ -1,6 +1,6 @@
 {
     "name": "sunnysideup/ecommerce_orderstep_feedback",
-    "type": "silverstripe-module",
+    "type": "silverstripe-vendormodule",
     "description": "add a feedbck step to silverstripe e-commerce",
     "license": "BSD-3-Clause",
     "authors": [
@@ -11,16 +11,18 @@
         }
     ],
     "require": {
-        "silverstripe/framework": "~3.6",
         "sunnysideup/ecommerce": "*",
-        "silverstripe/cms": "~3.6"
+        "silverstripe/recipe-cms": "^4.4"
     },
-    "extra": {
-        "installer-name": "ecommerce_orderstep_feedback"
-    },
+    "extra": [],
     "keywords": [
         "Silverstripe-CMS",
         "CMS",
         "Silverstripe"
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sunnysideup\\EcommerceOrderstepFeedback\\": "src/"
+        }
+    }
 }
