@@ -159,8 +159,8 @@ class OrderStepFeedback extends OrderStep
 
     /**
      * can continue if emails has been sent or if there is no need to send a receipt.
-     * @param DataObject $order Order
-     * @return DataObject | Null - DataObject = next OrderStep
+     * @param \SilverStripe\ORM\DataObject $order Order
+     * @return \SilverStripe\ORM\DataObject | Null - DataObject = next OrderStep
      **/
     public function nextStep(Order $order)
     {
