@@ -4,7 +4,7 @@ namespace Sunnysideup\EcommerceOrderstepFeedback\Email;
 
 use Sunnysideup\Ecommerce\Email\OrderEmail;
 
-class OrderStepFeedback_Email extends OrderEmail
+class OrderStepFeedbackEmail extends OrderEmail
 {
-    protected $ss_template = OrderStepFeedback_Email::class;
+    protected $ss_template = OrderStepFeedbackEmail::class;
 }

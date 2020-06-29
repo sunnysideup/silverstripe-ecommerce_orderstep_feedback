@@ -11,7 +11,7 @@ use SilverStripe\ORM\DB;
 use Sunnysideup\Ecommerce\Model\Order;
 use Sunnysideup\Ecommerce\Model\Process\OrderEmailRecord;
 use Sunnysideup\Ecommerce\Model\Process\OrderStep;
-use Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedback_Email;
+use Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedbackEmail;
 
 /**
  * 1 July bough
@@ -40,7 +40,7 @@ class OrderStepFeedback extends OrderStep
     /**
      * @var string
      */
-    protected $emailClassName = OrderStepFeedback_Email::class;
+    protected $emailClassName = OrderStepFeedbackEmail::class;
 
     private static $verbose = false;
 
@@ -127,9 +127,7 @@ class OrderStepFeedback extends OrderStep
                     DB::alteration_message(' - Time to send feedback is expired');
                 }
                 return true;
-            }
-            //is now the right time to send?
-            elseif ($this->isReadyToGo($order)) {
+            } elseif ($this->isReadyToGo($order)) { //is now the right time to send?
                 $subject = $this->EmailSubject;
                 $message = $this->CustomerMessage;
                 if ($this->hasBeenSent($order, false)) {
