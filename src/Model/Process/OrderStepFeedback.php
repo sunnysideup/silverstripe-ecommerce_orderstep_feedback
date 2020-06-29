@@ -44,14 +44,6 @@ class OrderStepFeedback extends OrderStep
 
     private static $verbose = false;
 
-    /**
-     * ### @@@@ START REPLACEMENT @@@@ ###
-     * OLD: private static $db (case sensitive)
-     * NEW:
-    private static $db (COMPLEX)
-     * EXP: Check that is class indeed extends DataObject and that it is not a data-extension!
-     * ### @@@@ STOP REPLACEMENT @@@@ ###
-     */
     private static $table_name = 'OrderStepFeedback';
 
     private static $db = [
@@ -82,25 +74,7 @@ class OrderStepFeedback extends OrderStep
             'Root.CustomerMessage',
             [
                 CheckboxField::create('SendFeedbackEmail', 'Send feedback email to customer?'),
-
-                /**
-                 * ### @@@@ START REPLACEMENT @@@@ ###
-                 * WHY: automated upgrade
-                 * OLD: NumericField::create (case sensitive)
-                 * NEW: NumericField::create (COMPLEX)
-                 * EXP: check the number of decimals required and add as ->setScale(2)
-                 * ### @@@@ STOP REPLACEMENT @@@@ ###
-                 */
                 $minDaysField = NumericField::create('MinDays', '<strong>Min Days</strong> before sending'),
-
-                /**
-                 * ### @@@@ START REPLACEMENT @@@@ ###
-                 * WHY: automated upgrade
-                 * OLD: NumericField::create (case sensitive)
-                 * NEW: NumericField::create (COMPLEX)
-                 * EXP: check the number of decimals required and add as ->setScale(2)
-                 * ### @@@@ STOP REPLACEMENT @@@@ ###
-                 */
                 $maxDaysField = NumericField::create('MaxDays', '<strong>Max Days</strong> before sending'),
             ],
             'EmailSubject'
