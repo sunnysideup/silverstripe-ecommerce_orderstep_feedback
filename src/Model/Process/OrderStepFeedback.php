@@ -204,7 +204,7 @@ class OrderStepFeedback extends OrderStep
 
     /**
      * For some ordersteps this returns true...
-     * @return boolean
+     * @return bool
      **/
     protected function hasCustomerMessage()
     {
@@ -223,7 +223,7 @@ class OrderStepFeedback extends OrderStep
     /**
      * returns true if the Minimum number of days is met....
      * @param Order $order
-     * @return boolean
+     * @return bool
      */
     protected function isReadyToGo(Order $order)
     {
@@ -252,7 +252,7 @@ class OrderStepFeedback extends OrderStep
     /**
      * returns true if it is too late to send the feedback step
      * @param Order $order
-     * @return boolean
+     * @return bool
      */
     protected function isExpiredFeedbackStep(Order $order)
     {
