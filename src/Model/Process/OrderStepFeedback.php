@@ -79,8 +79,8 @@ class OrderStepFeedback extends OrderStep
             ],
             'EmailSubject'
         );
-        $minDaysField->setRightTitle('What is the <strong>mininum number of days to wait after completing an order</strong> before this email should be sent?');
-        $maxDaysField->setRightTitle(
+        $minDaysField->setDescription('What is the <strong>mininum number of days to wait after completing an order</strong> before this email should be sent?');
+        $maxDaysField->setDescription(
             '
             What is the <strong>maxinum number of days to wait after completing an order</strong> before this email should be sent?<br>
             <strong>If set to zero, this step will be ignored.</strong>'
@@ -91,13 +91,13 @@ class OrderStepFeedback extends OrderStep
                 HTMLEditorField::create(
                     'MessageAfterProductsList',
                     _t('OrderStepFeedback.MESSAGEAFTERPRODUCTSLIST', 'Message After Products List')
-                )->setRightTitle(
+                )->setDescription(
                     'Optional message displayed after the list of products'
                 )->setRows(3),
                 TextField::create(
                     'LinkText',
                     _t('OrderStepFeedback.BUTTONTEXT', 'Link Text')
-                )->setRightTitle('This is the text displayed on the "order again" link/button'),
+                )->setDescription('This is the text displayed on the "order again" link/button'),
             ]
         );
         if ($this->MinDays) {
