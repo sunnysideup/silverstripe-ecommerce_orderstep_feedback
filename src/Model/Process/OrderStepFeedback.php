@@ -181,19 +181,19 @@ class OrderStepFeedback extends OrderStep
 
     public function hasBeenSent(Order $order, $checkDateOfOrder = true)
     {
-        return OrderEmailRecord::get()->filter(
+        return (bool) OrderEmailRecord::get()->filter(
             [
                 'OrderID' => $order->ID,
                 'OrderStepID' => $this->ID,
                 'Result' => 1,
             ]
-        )->count() ? true : false;
+        )->count();
     }
 
     /**
      * Event handler called before writing to the database.
      */
-    public function onBeforeWrite()
+    protected function onBeforeWrite()
     {
         parent::onBeforeWrite();
         $deferTime = $this->MinDays * 86400;
@@ -222,7 +222,6 @@ class OrderStepFeedback extends OrderStep
 
     /**
      * returns true if the Minimum number of days is met....
-     * @param Order $order
      * @return bool
      */
     protected function isReadyToGo(Order $order)
@@ -240,7 +239,7 @@ class OrderStepFeedback extends OrderStep
                 if ($this->Config()->get('verbose')) {
                     DB::alteration_message('Time comparison: Start Sending TS: ' . $startSendingTS . ' current TS: ' . $nowTS . '. If SSTS > NowTS then Go for it.');
                 }
-                return $startSendingTS <= $nowTS ? true : false;
+                return $startSendingTS <= $nowTS;
             }
             user_error('can not find order log for ' . $order->ID);
             return false;
@@ -251,7 +250,6 @@ class OrderStepFeedback extends OrderStep
 
     /**
      * returns true if it is too late to send the feedback step
-     * @param Order $order
      * @return bool
      */
     protected function isExpiredFeedbackStep(Order $order)
@@ -262,7 +260,7 @@ class OrderStepFeedback extends OrderStep
                 $createdTS = strtotime($log->Created);
                 $nowTS = strtotime('now');
                 $stopSendingTS = strtotime("+{$this->MaxDays} days", $createdTS);
-                return $stopSendingTS < $nowTS ? true : false;
+                return $stopSendingTS < $nowTS;
             }
             user_error('can not find order log for ' . $order->ID);
             return false;
