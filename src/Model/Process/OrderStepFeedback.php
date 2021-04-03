@@ -109,7 +109,7 @@ class OrderStepFeedback extends OrderStep
         return $fields;
     }
 
-    public function initStep(Order $order) : bool
+    public function initStep(Order $order): bool
     {
         if ($this->SendFeedbackEmail) {
             Config::modify()->update(OrderStep::class, 'number_of_days_to_send_update_email', $this->MaxDays);
@@ -117,7 +117,7 @@ class OrderStepFeedback extends OrderStep
         return true;
     }
 
-    public function doStep(Order $order) : bool
+    public function doStep(Order $order): bool
     {
         //ignore altogether?
         if ($this->SendFeedbackEmail) {
