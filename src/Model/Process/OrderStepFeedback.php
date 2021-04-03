@@ -161,7 +161,7 @@ class OrderStepFeedback extends OrderStep
      * can continue if emails has been sent or if there is no need to send a receipt.
      * @return OrderStep|null
      **/
-    public function nextStep(Order $order) : bool
+    public function nextStep(Order $order)
     {
         if (! $this->SendFeedbackEmail ||
              $this->hasBeenSent($order, false) ||
