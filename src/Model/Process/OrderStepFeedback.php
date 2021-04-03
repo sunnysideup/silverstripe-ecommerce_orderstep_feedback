@@ -117,7 +117,7 @@ class OrderStepFeedback extends OrderStep
         return true;
     }
 
-    public function doStep(Order $order) : bool : bool
+    public function doStep(Order $order) : bool
     {
         //ignore altogether?
         if ($this->SendFeedbackEmail) {
