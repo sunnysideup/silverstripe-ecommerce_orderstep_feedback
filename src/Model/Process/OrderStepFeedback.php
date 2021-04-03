@@ -109,7 +109,7 @@ class OrderStepFeedback extends OrderStep
         return $fields;
     }
 
-    public function initStep(Order $order)
+    public function initStep(Order $order) : bool
     {
         if ($this->SendFeedbackEmail) {
             Config::modify()->update(OrderStep::class, 'number_of_days_to_send_update_email', $this->MaxDays);
@@ -117,7 +117,7 @@ class OrderStepFeedback extends OrderStep
         return true;
     }
 
-    public function doStep(Order $order)
+    public function doStep(Order $order) : bool : bool
     {
         //ignore altogether?
         if ($this->SendFeedbackEmail) {
@@ -161,7 +161,7 @@ class OrderStepFeedback extends OrderStep
      * can continue if emails has been sent or if there is no need to send a receipt.
      * @return OrderStep|null
      **/
-    public function nextStep(Order $order)
+    public function nextStep(Order $order) : bool
     {
         if (! $this->SendFeedbackEmail ||
              $this->hasBeenSent($order, false) ||
