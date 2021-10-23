@@ -194,7 +194,7 @@ class OrderStepFeedback extends OrderStep
                 'OrderStepID' => $this->ID,
                 'Result' => 1,
             ]
-        )->count();
+        )->exists();
     }
 
     /**
