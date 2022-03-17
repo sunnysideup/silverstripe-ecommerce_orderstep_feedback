@@ -39,6 +39,10 @@ class OrderStepFeedback extends OrderStep
      */
     protected $emailClassName = OrderStepFeedbackEmail::class;
 
+    private static $step_logic_conditions = [
+        'DoneNotRequiredOrNoLongerRequired' => true,
+    ];
+
     private static $verbose = false;
 
     private static $table_name = 'OrderStepFeedback';
@@ -162,28 +166,17 @@ class OrderStepFeedback extends OrderStep
         return true;
     }
 
-    /**
-     * can continue if emails has been sent or if there is no need to send a receipt.
-     *
-     * @return null|OrderStep
-     */
-    public function nextStep(Order $order)
+    public function DoneNotRequiredOrNoLongerRequired(Order $order) : bool
     {
-        if (! $this->SendFeedbackEmail ||
+        if (
+            ! $this->SendFeedbackEmail ||
              $this->hasBeenSent($order, false) ||
              $this->isExpiredFeedbackStep($order)
         ) {
-            if ($this->Config()->get('verbose')) {
-                DB::alteration_message(' - Moving to next step');
-            }
-
-            return parent::nextStep($order);
+            return true;
         }
-        if ($this->Config()->get('verbose')) {
-            DB::alteration_message(' - no next step: has not been sent');
-        }
+        return false;
 
-        return null;
     }
 
     public function hasBeenSent(Order $order, $checkDateOfOrder = true)
