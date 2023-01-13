@@ -166,7 +166,7 @@ class OrderStepFeedback extends OrderStep
         return true;
     }
 
-    public function DoneNotRequiredOrNoLongerRequired(Order $order) : bool
+    public function DoneNotRequiredOrNoLongerRequired(Order $order): bool
     {
         if (
             ! $this->SendFeedbackEmail ||
@@ -175,8 +175,8 @@ class OrderStepFeedback extends OrderStep
         ) {
             return true;
         }
-        return false;
 
+        return false;
     }
 
     public function hasBeenSent(Order $order, $checkDateOfOrder = true)
