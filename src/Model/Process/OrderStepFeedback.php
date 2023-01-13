@@ -232,7 +232,7 @@ class OrderStepFeedback extends OrderStep
         if ($this->MinDays) {
             $log = $order->SubmissionLog();
             if ($log) {
-                $createdTS = strtotime($log->Created);
+                $createdTS = strtotime((string) $log->Created);
                 $nowTS = strtotime('now');
                 $startSendingTS = strtotime("+{$this->MinDays} days", $createdTS);
                 //current TS = 10
@@ -263,7 +263,7 @@ class OrderStepFeedback extends OrderStep
         if ($this->MaxDays) {
             $log = $order->SubmissionLog();
             if ($log) {
-                $createdTS = strtotime($log->Created);
+                $createdTS = strtotime((string) $log->Created);
                 $nowTS = strtotime('now');
                 $stopSendingTS = strtotime("+{$this->MaxDays} days", $createdTS);
 
