@@ -14,7 +14,7 @@ use Sunnysideup\Ecommerce\Model\Process\OrderStep;
 use Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedbackEmail;
 
 /**
- * 1 July bough
+ * 1 July sale
  * +10 days start sending
  * +20 days stop sending
  * SO
@@ -24,13 +24,19 @@ use Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedbackEmail;
  */
 
 /**
- * 1 July bought
+ * 1 July sale
  * +10 days start sending
  * +20 days stop sending
  * SO
  * on 11 July
  * 1 July + 10 < Now
  * 1 July + 20 > Now.
+ *
+ * @property bool $SendFeedbackEmail
+ * @property int $MinDays
+ * @property int $MaxDays
+ * @property string $MessageAfterProductsList
+ * @property string $LinkText
  */
 class OrderStepFeedback extends OrderStep
 {
@@ -114,7 +120,7 @@ class OrderStepFeedback extends OrderStep
     public function initStep(Order $order): bool
     {
         if ($this->SendFeedbackEmail) {
-            Config::modify()->update(OrderStep::class, 'number_of_days_to_send_update_email', $this->MaxDays);
+            Config::modify()->merge(OrderStep::class, 'number_of_days_to_send_update_email', $this->MaxDays);
         }
 
         return true;
