@@ -141,6 +141,7 @@ class OrderStepFeedback extends OrderStep
             if ($this->isReadyToGo($order)) { //is now the right time to send?
                 $subject = $this->EmailSubject;
                 $message = $this->CustomerMessage;
+                // can be sent much later - hence the false...
                 if ($this->hasBeenSent($order, false)) {
                     if ($this->Config()->get('verbose')) {
                         DB::alteration_message(' - already sent!');
@@ -176,6 +177,7 @@ class OrderStepFeedback extends OrderStep
     {
         if (
             ! $this->SendFeedbackEmail ||
+            // can be sent much later than order, hence the FALSE
              $this->hasBeenSent($order, false) ||
              $this->isExpiredFeedbackStep($order)
         ) {
