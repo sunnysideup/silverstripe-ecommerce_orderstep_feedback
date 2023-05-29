@@ -215,7 +215,7 @@ class OrderStepFeedback extends OrderStep
      *
      * @return bool
      */
-    protected function hasCustomerMessage()
+    public function hasCustomerMessage()
     {
         return true;
     }
