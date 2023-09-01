@@ -42,6 +42,7 @@
                                             <% else %>
                                                 <span class="tableTitle">$TableTitle</span>
                                             <% end_if %>
+                                                <span class="tableSubTitle">$TableSubTitle</span>
                                         </li>
                                     <% end_loop %>
                                     </ul>
