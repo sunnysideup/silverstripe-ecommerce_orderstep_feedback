@@ -46,6 +46,7 @@ class OrderStepFeedback extends OrderStep
      */
     protected $emailClassName = OrderStepFeedbackEmail::class;
 
+    // true goes not next step
     private static $step_logic_conditions = [
         'DoneNotRequiredOrNoLongerRequired' => true,
     ];
@@ -177,7 +178,7 @@ class OrderStepFeedback extends OrderStep
     public function DoneNotRequiredOrNoLongerRequired(Order $order): bool
     {
         if (
-            ! $this->SendFeedbackEmail ||
+            !$this->SendFeedbackEmail ||
             // can be sent much later than order, hence the FALSE
              $this->hasBeenSent($order, false) ||
              $this->isExpiredFeedbackStep($order)
