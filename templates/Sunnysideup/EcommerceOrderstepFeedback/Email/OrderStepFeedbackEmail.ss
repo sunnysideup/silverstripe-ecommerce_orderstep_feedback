@@ -68,7 +68,7 @@
                     <% if $Status.LinkText %>
                         $Status.LinkText
                     <% else %>
-                        Place this order again
+                        Repeat this order
                     <% end_if %>
                 </a>
             <% end_if %>
