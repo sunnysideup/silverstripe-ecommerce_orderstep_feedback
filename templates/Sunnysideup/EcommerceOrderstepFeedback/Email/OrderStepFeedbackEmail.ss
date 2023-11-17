@@ -6,64 +6,20 @@
     <title>$Subject</title>
 </head>
 <body>
-<div id="EmailContent" style="margin: 20px">
-    <table id="Content">
-        <thead>
-            <tr class="shopAddress">
-                <th>
-                    <% include Sunnysideup/Ecommerce/Includes/Order_ShopInfo_PackingSlip %>
-                </th>
-            </tr>
+<div id="EmailContent" style="padding: 20px; max-width: 500px; margin: 0 auto;">
+    <% if $Order %>
+        <% with $Order %>
+        Dear $Member.FirstName,<br /><br />
+        <% end_with %>
 
-            <tr class="message">
-                <td class="left">
-                    <h1 class="title">$Subject</h1>
-                    <% if OrderStepMessage %><div class="orderStepMessage">$OrderStepMessage.RAW</div><% end_if %>
-                </td>
-            </tr>
+        <% if $OrderStepMessage %><div class="orderStepMessage">$OrderStepMessage</div><% end_if %>
 
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <% if Order %>
-                        <% with Order %>
-                            <div id="OrderInformation">
-                                <h2 class="orderHeading"><% if RetrieveLink %><a href="$RetrieveLink"><% end_if %>$Title<% if RetrieveLink %></a><% end_if %></h2>
-                                <% if Items %>
-                                    <h2>Please place feedback for the following items:</h2>
-                                    <ul>
-                                    <% loop Items %>
-                                        <li>
-                                            <% if Link %>
-                                                <a href="$Buyable.Link#Form_PageRatingForm" target="_blank">
-                                                    $TableTitle
-                                                </a>
-                                            <% else %>
-                                                <span class="tableTitle">$TableTitle</span>
-                                            <% end_if %>
-                                                <span class="tableSubTitle">$TableSubTitle</span>
-                                        </li>
-                                    <% end_loop %>
-                                    </ul>
-                                <% end_if %>
-                                <% include Sunnysideup/Ecommerce/Includes/Order_Addresses %>
-                            </div>
-                        <% end_with %>
-                    <% else %>
-                        <p class="warning message">There was an error in retrieving this order. Please contact the store.</p>
-                    <% end_if %>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <% if Order %>
         <% with Order %>
-            <% if Status.MessageAfterProductsList %>
-                <div class="messageAfterProductsList">$Status.MessageAfterProductsList</div>
-            <% end_if %>
-            <% if CopyOrderLink %>
+            <hr />
+            <p>
+            Order Reference: <% if $RetrieveLink %><a href="$RetrieveLink"><% end_if %>$Title<% if RetrieveLink %></a><% end_if %>
+            <% if $CopyOrderLink %>
+            <br />
                 <a href="$CopyOrderLink" class="button reorder-button">
                     <% if $Status.LinkText %>
                         $Status.LinkText
@@ -72,6 +28,13 @@
                     <% end_if %>
                 </a>
             <% end_if %>
+            </p>
+            <hr />
+
+            <% if Status.MessageAfterProductsList %>
+                <div class="messageAfterProductsList">$Status.MessageAfterProductsList</div>
+            <% end_if %>
+
         <% end_with %>
     <% end_if %>
 </div>
