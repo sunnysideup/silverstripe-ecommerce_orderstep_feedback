@@ -8,6 +8,7 @@ use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DB;
+use SilverStripe\ORM\FieldType\DBField;
 use Sunnysideup\Ecommerce\Model\Order;
 use Sunnysideup\Ecommerce\Model\Process\OrderEmailRecord;
 use Sunnysideup\Ecommerce\Model\Process\OrderStep;
@@ -45,6 +46,12 @@ class OrderStepFeedback extends OrderStep
      */
     protected $emailClassName = OrderStepFeedbackEmail::class;
 
+    /**
+     * method to call when going to the next step.
+     * to see if it is still required.
+     *
+     * @var array
+     */
     private static $step_logic_conditions = [
         'DoneNotRequiredOrNoLongerRequired' => true,
     ];
@@ -81,8 +88,8 @@ class OrderStepFeedback extends OrderStep
             'Root.CustomerMessage',
             [
                 CheckboxField::create('SendFeedbackEmail', 'Send feedback email to customer?'),
-                $minDaysField = NumericField::create('MinDays', '<strong>Min Days</strong> before sending'),
-                $maxDaysField = NumericField::create('MaxDays', '<strong>Max Days</strong> before sending'),
+                $minDaysField = NumericField::create('MinDays', DBField::create_field('HTMLText', '<strong>Min Days</strong> before sending')),
+                $maxDaysField = NumericField::create('MaxDays', DBField::create_field('HTMLText', '<strong>Max Days</strong> before sending')),
             ],
             'EmailSubject'
         );
