@@ -8,7 +8,6 @@ use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DB;
-use SilverStripe\ORM\FieldType\DBField;
 use Sunnysideup\Ecommerce\Model\Order;
 use Sunnysideup\Ecommerce\Model\Process\OrderEmailRecord;
 use Sunnysideup\Ecommerce\Model\Process\OrderStep;
@@ -246,8 +245,8 @@ class OrderStepFeedback extends OrderStep
     {
         if ($this->MinDays) {
             $log = $order->SubmissionLog();
-            if ($log) {
-                $createdTS = strtotime((string) $log->Created);
+            $createdTS = $this->createdTs($order);
+            if ($createdTS) {
                 $nowTS = strtotime('now');
                 $startSendingTS = strtotime("+{$this->MinDays} days", $createdTS);
                 //current TS = 10
@@ -258,7 +257,7 @@ class OrderStepFeedback extends OrderStep
                     DB::alteration_message('Time comparison: Start Sending TS: ' . $startSendingTS . ' current TS: ' . $nowTS . '. If SSTS > NowTS then Go for it.');
                 }
 
-                return $startSendingTS <= $nowTS;
+                return $startSendingTS < $nowTS;
             }
             user_error('can not find order log for ' . $order->ID);
 
@@ -277,8 +276,8 @@ class OrderStepFeedback extends OrderStep
     {
         if ($this->MaxDays) {
             $log = $order->SubmissionLog();
-            if ($log) {
-                $createdTS = strtotime((string) $log->Created);
+            $createdTS = $this->createdTs($order);
+            if ($createdTS) {
                 $nowTS = strtotime('now');
                 $stopSendingTS = strtotime("+{$this->MaxDays} days", $createdTS);
 
@@ -290,5 +289,20 @@ class OrderStepFeedback extends OrderStep
         }
 
         return true;
+    }
+
+    protected $createdTsCache = null;
+
+    protected function createdTs($order)
+    {
+        if($this->createdTsCache === null) {
+
+        }
+        $log = $order->SubmissionLog();
+        if ($log) {
+            $this->createdTsCache = $createdTS = strtotime((string) $log->Created);
+
+        }
+        return $this->createdTsCache;
     }
 }
