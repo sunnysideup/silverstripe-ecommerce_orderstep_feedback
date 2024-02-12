@@ -8,6 +8,7 @@ use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\NumericField;
 use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DB;
+use SilverStripe\ORM\FieldType\DBField;
 use Sunnysideup\Ecommerce\Model\Order;
 use Sunnysideup\Ecommerce\Model\Process\OrderEmailRecord;
 use Sunnysideup\Ecommerce\Model\Process\OrderStep;
