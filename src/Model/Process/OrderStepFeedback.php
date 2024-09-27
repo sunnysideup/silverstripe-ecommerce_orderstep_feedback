@@ -45,6 +45,7 @@ class OrderStepFeedback extends OrderStep
      * @var string
      */
     protected $emailClassName = OrderStepFeedbackEmail::class;
+    protected int $prevMaxDays;
 
     /**
      * method to call when going to the next step.
@@ -127,6 +128,7 @@ class OrderStepFeedback extends OrderStep
     public function initStep(Order $order): bool
     {
         if ($this->SendFeedbackEmail) {
+            $this->prevMaxDays = (int) Config::inst()->get(OrderStep::class, 'number_of_days_to_send_update_email');
             Config::modify()->set(OrderStep::class, 'number_of_days_to_send_update_email', $this->MaxDays);
         }
 
@@ -178,6 +180,23 @@ class OrderStepFeedback extends OrderStep
         }
 
         return true;
+    }
+
+    /**
+     * nextStep:
+     * returns the next step (after it checks if everything is in place for the next step to run...).
+     *
+     * @see Order::doNextStatus
+     *
+     * @return null|OrderStep (next step OrderStep object)
+     */
+    public function nextStep(Order $order): ?OrderStep
+    {
+        if ($this->SendFeedbackEmail) {
+            Config::modify()->set(OrderStep::class, 'number_of_days_to_send_update_email', $this->prevMaxDays);
+        }
+
+        return parent::nextStep($order);
     }
 
     public function DoneNotRequiredOrNoLongerRequired(Order $order): bool
@@ -296,7 +315,7 @@ class OrderStepFeedback extends OrderStep
 
     protected function createdTs($order)
     {
-        if($this->createdTsCache === null) {
+        if ($this->createdTsCache === null) {
 
         }
         $log = $order->SubmissionLog();
