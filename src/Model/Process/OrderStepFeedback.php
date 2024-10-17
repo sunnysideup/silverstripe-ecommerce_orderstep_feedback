@@ -215,13 +215,7 @@ class OrderStepFeedback extends OrderStep
 
     public function hasBeenSent(Order $order, $checkDateOfOrder = true)
     {
-        return (bool) OrderEmailRecord::get()->filter(
-            [
-                'OrderID' => $order->ID,
-                'OrderStepID' => $this->ID,
-                'Result' => 1,
-            ]
-        )->exists();
+        return parent::hasBeenSent($order, false);
     }
 
     /**
