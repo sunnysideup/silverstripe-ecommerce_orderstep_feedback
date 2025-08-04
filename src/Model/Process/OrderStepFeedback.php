@@ -258,7 +258,7 @@ class OrderStepFeedback extends OrderStep
     protected function isReadyToGo(Order $order)
     {
         if ($this->MinDays) {
-            $log = $order->SubmissionLog();
+            // $log = $order->SubmissionLog();
             $createdTS = $this->createdTs($order);
             if ($createdTS) {
                 $nowTS = strtotime('now');
@@ -309,13 +309,9 @@ class OrderStepFeedback extends OrderStep
 
     protected function createdTs($order)
     {
-        if ($this->createdTsCache === null) {
-
-        }
         $log = $order->SubmissionLog();
         if ($log) {
-            $this->createdTsCache = $createdTS = strtotime((string) $log->Created);
-
+            $this->createdTsCache = strtotime((string) $log->Created);
         }
         return $this->createdTsCache;
     }
