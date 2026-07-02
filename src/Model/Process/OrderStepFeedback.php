@@ -2,6 +2,7 @@
 
 namespace Sunnysideup\EcommerceOrderstepFeedback\Model\Process;
 
+use Override;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
@@ -10,7 +11,6 @@ use SilverStripe\Forms\TextField;
 use SilverStripe\ORM\DB;
 use SilverStripe\ORM\FieldType\DBField;
 use Sunnysideup\Ecommerce\Model\Order;
-use Sunnysideup\Ecommerce\Model\Process\OrderEmailRecord;
 use Sunnysideup\Ecommerce\Model\Process\OrderStep;
 use Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedbackEmail;
 
@@ -45,6 +45,7 @@ class OrderStepFeedback extends OrderStep
      * @var string
      */
     protected $emailClassName = OrderStepFeedbackEmail::class;
+
     protected int $prevMaxDays;
 
     /**
@@ -82,6 +83,7 @@ class OrderStepFeedback extends OrderStep
         'MaxDays' => 20,
     ];
 
+    #[Override]
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -125,6 +127,7 @@ class OrderStepFeedback extends OrderStep
         return $fields;
     }
 
+    #[Override]
     public function initStep(Order $order): bool
     {
         if ($this->SendFeedbackEmail) {
@@ -135,6 +138,7 @@ class OrderStepFeedback extends OrderStep
         return true;
     }
 
+    #[Override]
     public function doStep(Order $order): bool
     {
         //ignore altogether?
@@ -147,6 +151,7 @@ class OrderStepFeedback extends OrderStep
 
                 return true;
             }
+
             if ($this->isReadyToGo($order)) { //is now the right time to send?
                 $subject = $this->EmailSubject;
                 $message = $this->CustomerMessage;
@@ -158,6 +163,7 @@ class OrderStepFeedback extends OrderStep
 
                     return true; //do nothing
                 }
+
                 if ($this->Config()->get('verbose')) {
                     DB::alteration_message(' - Sending it now!');
                 }
@@ -170,6 +176,7 @@ class OrderStepFeedback extends OrderStep
                     $adminOnlyOrToEmail = false
                 );
             }
+
             //wait until later....
 
             if ($this->Config()->get('verbose')) {
@@ -190,6 +197,7 @@ class OrderStepFeedback extends OrderStep
      *
      * @return null|OrderStep (next step OrderStep object)
      */
+    #[Override]
     public function nextStep(Order $order): ?OrderStep
     {
         if ($this->SendFeedbackEmail) {
@@ -201,18 +209,13 @@ class OrderStepFeedback extends OrderStep
 
     public function DoneNotRequiredOrNoLongerRequired(Order $order): bool
     {
-        if (
-            ! $this->SendFeedbackEmail ||
-            // can be sent much later than order, hence the FALSE
-             $this->hasBeenSent($order, false) ||
-             $this->isExpiredFeedbackStep($order)
-        ) {
-            return true;
-        }
-
-        return false;
+        return ! $this->SendFeedbackEmail ||
+        // can be sent much later than order, hence the FALSE
+         $this->hasBeenSent($order, false) ||
+         $this->isExpiredFeedbackStep($order);
     }
 
+    #[Override]
     public function hasBeenSent(Order $order, $checkDateOfOrder = true)
     {
         return parent::hasBeenSent($order, false);
@@ -221,6 +224,7 @@ class OrderStepFeedback extends OrderStep
     /**
      * Event handler called before writing to the database.
      */
+    #[Override]
     protected function onBeforeWrite()
     {
         parent::onBeforeWrite();
@@ -235,6 +239,7 @@ class OrderStepFeedback extends OrderStep
      *
      * @return bool
      */
+    #[Override]
     public function hasCustomerMessage()
     {
         return true;
@@ -245,6 +250,7 @@ class OrderStepFeedback extends OrderStep
      *
      * @return string
      */
+    #[Override]
     protected function myDescription()
     {
         return 'The customer is sent a feedback request email.';
@@ -262,7 +268,7 @@ class OrderStepFeedback extends OrderStep
             $createdTS = $this->createdTs($order);
             if ($createdTS) {
                 $nowTS = strtotime('now');
-                $startSendingTS = strtotime("+{$this->MinDays} days", $createdTS);
+                $startSendingTS = strtotime(sprintf('+%s days', $this->MinDays), $createdTS);
                 //current TS = 10
                 //order TS = 8
                 //add 4 days: 12
@@ -273,10 +279,12 @@ class OrderStepFeedback extends OrderStep
 
                 return $startSendingTS < $nowTS;
             }
+
             user_error('can not find order log for ' . $order->ID);
 
             return false;
         }
+
         //send immediately
         return true;
     }
@@ -293,10 +301,11 @@ class OrderStepFeedback extends OrderStep
             $createdTS = $this->createdTs($order);
             if ($createdTS) {
                 $nowTS = strtotime('now');
-                $stopSendingTS = strtotime("+{$this->MaxDays} days", $createdTS);
+                $stopSendingTS = strtotime(sprintf('+%s days', $this->MaxDays), $createdTS);
 
                 return $stopSendingTS < $nowTS;
             }
+
             user_error('can not find order log for ' . $order->ID);
 
             return false;
@@ -313,6 +322,7 @@ class OrderStepFeedback extends OrderStep
         if ($log) {
             $this->createdTsCache = strtotime((string) $log->Created);
         }
+
         return $this->createdTsCache;
     }
 }

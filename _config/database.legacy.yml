@@ -1,4 +1,5 @@
-SilverStripe\ORM\DatabaseAdmin:
+
+SilverStripe\Dev\DbBuild:
   classname_value_remapping:
     OrderStepFeedback_Email: Sunnysideup\EcommerceOrderstepFeedback\Email\OrderStepFeedbackEmail
     OrderStepFeedback: Sunnysideup\EcommerceOrderstepFeedback\Model\Process\OrderStepFeedback
