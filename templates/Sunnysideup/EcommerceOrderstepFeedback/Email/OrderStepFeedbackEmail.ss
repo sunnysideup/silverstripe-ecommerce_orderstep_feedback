@@ -19,9 +19,9 @@
             <hr />
             <p>
             Order Reference: <% if $RetrieveLink %><a href="$RetrieveLink"><% end_if %>$Title<% if RetrieveLink %></a><% end_if %>
-            <% if $CopyOrderLink %>
+            <% if $Link %>
             <br />
-                <a href="$CopyOrderLink" class="button reorder-button">
+                <a href="$Link" class="button reorder-button">
                     <% if $Status.LinkText %>
                         $Status.LinkText
                     <% else %>
